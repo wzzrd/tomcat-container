@@ -1,2 +1,3 @@
 #!/bin/sh
+export JAVA_OPTS="$JAVA_OPTS -Xms{{TOMCAT_HEAP_SIZE}} -Xmx{{TOMCAT_HEAP_SIZE}}"
 exec "$@"
