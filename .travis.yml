@@ -36,7 +36,6 @@ script:
   # Start the service
   - ansible-container run -d 
   - docker inspect ansible_tomcat_1 
-  - docker exec -it ansible_tomcat_1 ls -l /var/www/html/
   - docker logs ansible_tomcat_1
 
   # Run tests
