@@ -1,0 +1,10 @@
+tomcat:
+  image: centos:7
+  entrypoint: ['/usr/bin/entrypoint.sh']
+  working_dir: /
+  user: tomcat
+  command: [/usr/bin/dumb-init, httpd, -DFOREGROUND]
+  ports:
+    - 8005:8005
+    - 8983:8983
+    - 8443:8443

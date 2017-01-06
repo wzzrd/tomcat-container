@@ -1,0 +1,42 @@
+---
+- name: Install Packages
+  package: name={{item}} state=installed
+  with_items:
+  - tomcat
+  - rsync
+
+- name: Install dumb init
+  get_url:
+    url: https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64
+    dest: /usr/bin/dumb-init
+    owner: root
+    group: root
+    mode: 0775
+
+- name: Update the tomcat user
+  user:
+    name: tomcat
+    uid: 1000
+    group: root
+    createhome: no
+
+- name: Add entrypoint script
+  template:
+   src: entrypoint.sh.j2
+   dest: /usr/bin/entrypoint.sh
+   owner: root
+   group: root
+   mode: 0775
+
+- name: Add main config
+  template: 
+    src: server.xml.j2
+    dest: /etc/tomcat/server.xml
+
+- name: Add logging config
+  copy:
+    src: log4j.properties
+    dest: /etc/tomcat/log4j.properties
+
+- name: Cleanup
+  shell: yum clean all -y
