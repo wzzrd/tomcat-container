@@ -18,17 +18,27 @@ $ ansible-container install awasilyev.tomcat-container
 Post Install
 ------------
 
-The project's `container.yml` will be updated to include an *tomcat* service with the following port mappings, which you may wish to adjust:
+### Connecting 
+ 
+ In `container.yml` the Tomcat server port is mapped to host port **8080**. If you're using Docker Engine or Docker for Mac to run the service, connect to the web console at [http://localhost:8080](http://localhost:8080).
+
+### Configuring
+ 
+ On startup the *tomcat* container executes */usr/bin/entrypoint.sh* to set java heap size, and launch the Tomcat process. Any parameters passed to this script via the *command* directive in `container.yml` will be runned after JAVA_OPTS variable setting. By default it launches /usr/libexec/tomcat/server script.  
+
+ The document root for the server is */var/lib/tomcat/webapps*. During image build, the list of paths defined using TOMCAT_ASSET_PATHS will be copied to the document root. During application development you will likely want to map a host path to the document root, which can be done by adding a `dev_overrides` section to the service:
 
 ```
-ports:
-  - 8005:8005
-  - 8983:8983
-  - 8443:8443
+dev_overrides:
+   volumes:
+     - ${PWD}/wars:/var/lib/tomcat/webapps
 ```
 
-Role Variables
---------------
+
+ See Environment Variables, and Role Variables below for details on setting java heap size and container hostname.
+ 
+
+## Environment Variables
 
 The following variables are defined in [defaults/main.yml](./defaults/main.yml), and can be set in `main.yml`:
 
@@ -38,17 +48,20 @@ TOMCAT_HOSTNAME
 TOMCAT_HEAP_SIZE
 > Set the heap size (default 256m).
 
-Dependencies
+TOMCAT_ASSET_PATHS
+> Set the list of paths to be copied int /var/lib/tomcat/webapps (default ./apps)
+
+## Dependencies
 ------------
 
 None.
 
-License
+## License
 -------
 
 MIT/BSD
 
-Author Information
+## Author Information
 ------------------
 
 [@awasilyev](https://github.com/awasilyev)

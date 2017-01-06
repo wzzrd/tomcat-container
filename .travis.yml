@@ -35,14 +35,10 @@ script:
 
   # Start the service
   - ansible-container run -d 
-  - docker inspect ansible_tomcat_1 
-  - docker logs ansible_tomcat_1
 
   # Run tests
   - ansible-playbook test.yml
-  
-  - docker logs ansible_tomcat_1
-
+ 
 notifications:
   email: false
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

@@ -1,3 +1,5 @@
 TOMCAT_HOSTNAME: 'localhost'
 TOMCAT_HEAP_SIZE: '256m'
+TOMCAT_ASSET_PATHS:
+  - ./apps
 

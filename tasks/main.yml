@@ -38,5 +38,18 @@
     src: log4j.properties
     dest: /etc/tomcat/log4j.properties
 
+- name: fix directory owner
+  file: name="{{item}}" owner=tomcat state=directory recurse=yes
+  with_items:
+    - /var/lib/tomcat/webapps/
+    - /var/cache/tomcat
+
+- name: Put static assets
+  synchronize:
+    src: "{{ item }}/"
+    dest: "/var/lib/tomcat/webapps/"
+  with_items: "{{ TOMCAT_ASSET_PATHS }}"
+  remote_user: tomcat
+
 - name: Cleanup
   shell: yum clean all -y

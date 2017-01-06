@@ -11,21 +11,21 @@
     - name: Wait for service to be available
       wait_for:
         host: "{{ host_addr }}"
-        port: 8443
+        port: 8080
         delay: 1
         timeout: 15
 
-#    - name: Query the home page
-#      uri:
-#        url: "https://{{ host_addr }}:443"
-#        validate_certs: no
-#        return_content: yes
-#      register: output
-#
-#    - name: Show output
-#      debug:
-#        var: output
-#
-#    - name: Should see server name 
-#      assert:
-#        that: "'Apache HTTP Server' in output.content"
+    - name: Query the sample app
+      uri:
+        url: "http://{{ host_addr }}:8080/sample"
+        validate_certs: no
+        return_content: yes
+      register: output
+
+    - name: Show output
+      debug:
+        var: output
+
+    - name: Should see server name 
+      assert:
+        that: "'Hello, World' in output.content"
