@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Alexey Wasilyev
-  description: Ansible Container role that adds an tomcat service. 
+  description: Ansible Container role that adds an tomcat service.
   company: Ansible by Red Hat
 
   # If the issue tracker for your role is not on github, uncomment the
@@ -37,10 +37,10 @@ galaxy_info:
     versions:
     - 7
 
-  galaxy_tags: 
+  galaxy_tags:
     - tomcat
     - tomcat
     - web
     - container
-    - docker 
+    - docker
 dependencies: []

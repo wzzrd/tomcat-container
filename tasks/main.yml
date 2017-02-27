@@ -29,7 +29,7 @@
    mode: 0775
 
 - name: Add main config
-  template: 
+  template:
     src: server.xml.j2
     dest: /etc/tomcat/server.xml
 
