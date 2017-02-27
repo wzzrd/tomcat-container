@@ -48,9 +48,9 @@
   copy:
     src: "{{ item }}/"
     dest: "/var/lib/tomcat/webapps/"
-  owner: tomcat
-  mode: 0644
-  with_items: 
+    owner: tomcat
+    mode: 0644
+  with_items:
     - "{{ TOMCAT_ASSET_PATHS }}"
 
 - name: Cleanup
