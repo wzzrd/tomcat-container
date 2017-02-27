@@ -50,6 +50,7 @@
     dest: "/var/lib/tomcat/webapps/"
     owner: tomcat
     mode: 0644
+    remote_src: no
   with_items:
     - "{{ TOMCAT_ASSET_PATHS }}"
 
