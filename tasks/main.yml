@@ -45,11 +45,13 @@
     - /var/cache/tomcat
 
 - name: Put static assets
-  synchronize:
+  copy:
     src: "{{ item }}/"
     dest: "/var/lib/tomcat/webapps/"
-  with_items: "{{ TOMCAT_ASSET_PATHS }}"
-  remote_user: tomcat
+  owner: tomcat
+  mode: 0644
+  with_items: 
+    - "{{ TOMCAT_ASSET_PATHS }}"
 
 - name: Cleanup
   shell: yum clean all -y
